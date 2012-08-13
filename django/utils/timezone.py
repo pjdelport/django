@@ -274,6 +274,7 @@ def make_aware(value, timezone):
     """
     Makes a naive datetime.datetime in a given time zone aware.
     """
+    # XXX: worth supporting dates as midnight?
     if hasattr(timezone, 'localize'):
         # available for pytz time zones
         return timezone.localize(value, is_dst=None)

@@ -217,8 +217,8 @@ class PBKDF2PasswordHasher(BasePasswordHasher):
         assert salt and '$' not in salt
         if not iterations:
             iterations = self.iterations
-        hash = pbkdf2(password, salt, iterations, digest=self.digest)
-        hash = hash.encode('base64').strip()
+        hash = pbkdf2(password, salt, iterations, digest=self.digest)  # XXX: worth exposing dklen?
+        hash = hash.encode('base64').strip()  # FIXME: embedded newlines
         return "%s$%d$%s$%s" % (self.algorithm, iterations, salt, hash)
 
     def verify(self, password, encoded):
